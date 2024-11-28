@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wish">
+
+	<!-- 찜 목록추가 -->
+	<!-- <insert id="insertWish" parameterType="wish">
+		insert into wish (no,
+		users_no, goods_option_no, quantities) values (wish_seq.nextval,
+		#{users_no}, #{goods_option_no}, #{quantities})
+	</insert> -->
+	
+	<!-- 장바구니 확인 -->
+	<!-- <select id="checkwish" parameterType="wish" resultType="int">
+		SELECT no
+		FROM wish WHERE users_no = #{users_no} AND
+		goods_option_no =
+		#{goods_option_no}
+	</select> -->
+
+	<!-- 수량 추가 -->
+	<!-- <update id="addwishQuantity" parameterType="int">
+		UPDATE wish SET
+		quantity += #{quantity}
+	</update> -->
+
+	<!-- 옵션 수정 -->
+	<!-- <update id="updatewishQuantity" parameterType="wish">
+		UPDATE wish SET
+		goods_option_no = #{goods_option_no}
+		quantity = #{quantity}
+	</update> -->
+
+	<!-- 장바구니 삭제 -->
+	<!-- <delete id="deletewish" parameterType="int">
+		DELETE FROM wish WHERE no
+		= #{wishNo}
+	</delete>
+ -->
+ 
+ 
+ 
+	<!-- 찜목록 출력 -->
+	<select id="printWish" parameterType="int" resultType="map">
+   	 SELECT 
+    b.name AS brand_name,w.no,i.img AS store_img, g.name,g.dc_price, o.detail,
+   	 o.price, g.delivery_price,
+   	 g.free_condition
+  	  FROM brand b, goods_img i, goods g, goods_option o, wish w 
+  	  WHERE 
+  	  w.users_no = #{users_no}
+  	  AND g.brand_no = b.no <!-- 이거 있어야함 -->
+  	  AND w.goods_option_no = o.no
+ 	   AND w.goods_no = g.no
+ 	   AND g.no = i.goods_no 
+ 	   AND g.no = o.goods_no 
+ 	   AND i.seq = 1
+	</select> 
+	
+
+
+	<!-- 찜 목록에서 항목 제거 -->
+	 <delete id= "deleteWishList" parameterType="int">
+	DELETE FROM wish WHERE no = #{no} 
+	</delete> 
+
+	
+	<!-- 찜 목록추가 -->
+	 <insert id="insertWish" parameterType="wish">
+		insert into wish  values (wish_seq.nextval, #{users_no}, #{goods_no}, #{goods_option_no})
+	</insert> 
+ 
+
+</mapper>

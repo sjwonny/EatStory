@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="recipe">
+	<select id="selectList" resultType="recipe"> <!-- 레시피 테이블과 유저테이블 조인해서 레시피 정보+ 작성자 이름과 프로필 사진 검색(레시피 번호 오름차순으로 정렬)  -->
+		SELECT r.*, u.name AS users_name, u.img AS users_img FROM recipe r, users u WHERE r.user_no = u.no ORDER BY r.no 
+	</select>
+	
+	<select id="selectCount" resultType="int">
+		SELECT count(*) FROM recipe <!-- 레시피테이블에서 검색한 레코드의 수(레시피 개수라 보면 됨)-->
+	</select>
+	
+	<update id="updateHit" parameterType="int">
+		UPDATE recipe SET hit = hit + 1 WHERE no = #{no} 
+	</update>
+	
+	<select id="selectType" resultType="List">
+		SELECT * FROM type
+	</select>
+	
+	<select id="selectSituation" resultType="List">
+		SELECT * FROM situation
+	</select>
+	
+	<select id="selectMethod" resultType="List">
+		SELECT * FROM method
+	</select>
+	
+	<select id="selectIngre" resultType="List">
+		SELECT * FROM ingre
+	</select>
+	
+	<select id="selectRecipeNo" resultType="int">
+		SELECT recipe_seq.nextval FROM dual
+	</select>
+	
+	<insert id="insertRecipe" parameterType="recipe">
+	<!-- no, user_no, title, describe, video, type_no, situation_no, method_no, ingredient_no, people_count, hour, difficulty, tips, tag_no, hit, write_time, state -->
+		INSERT INTO recipe VALUES(#{no}, #{user_no}, #{title}, #{describe}, #{video}, #{type_no}, #{situation_no}, #{method_no}, #{ingredient_no}, #{people_count}, #{hour}, #{difficulty}, #{tips}, '', 0, sysdate, #{state}, 0)
+	</insert>
+	
+	<!-- no, recipe_no, detail, img, ingre, tool, fire, tip -->
+	<insert id="insertStep" parameterType="step">
+		INSERT INTO step VALUES(step_seq.nextval, #{recipe_no}, #{detail}, #{img}, #{ingre}, #{tool}, #{fire}, #{tip})
+	</insert>
+	
+	<!-- no, recipe_no, category, content, amount -->
+	<insert id="insertIngredient" parameterType="ingredient">
+		INSERT INTO ingredient VALUES(ingredient_seq.nextval, #{recipe_no}, #{category}, #{content}, #{amount})
+	</insert>
+	
+	<insert id="insertEndImage" parameterType="endImage">
+		INSERT INTO end_image VALUES(end_image_seq.nextval, #{recipe_no}, #{img})
+	</insert>
+	
+	<select id="selectContent" parameterType="int" resultType="recipe">
+		SELECT r.*, u.name AS users_name, u.img AS users_img FROM recipe r, users u WHERE r.no = #{no} AND r.user_no = u.no
+	</select>
+	
+	<select id="selectStepVoList" parameterType="int" resultType="step">
+		SELECT * FROM step WHERE recipe_no = #{no}
+	</select>
+	
+	<select id="selectIngredientVoList" parameterType="int" resultType="ingredient">
+		SELECT * FROM ingredient WHERE recipe_no = #{no}
+	</select>
+	
+	<select id="selectEndImageVoList" parameterType="int" resultType="endImage"> <!-- recipe_no가 입력한 번호와 같을 때 end_image에 모든 데이터를 조회  -->
+		SELECT * FROM end_image WHERE recipe_no = #{no}
+	</select>
+	
+	<select id="selectScore" parameterType="int" resultType="double">
+		SELECT score/2 FROM recipe WHERE no = #{no}
+	</select>
+	
+	
+	<delete id="deleteStep" parameterType="int">
+		DELETE step WHERE recipe_no = #{no}
+	</delete>
+	
+	<delete id="deleteEndImage" parameterType="int">
+		DELETE end_image WHERE recipe_no = #{no}
+	</delete>
+	
+	<delete id="deleteIngredient" parameterType="int">
+		DELETE ingredient WHERE recipe_no = #{no}
+	</delete>
+	
+	<delete id="deleteRecipe" parameterType="int">
+		DELETE recipe WHERE no = #{no}
+	</delete>
+	
+	<!-- no, recipe_no, score, users_no -->
+	<insert id="insertRating" parameterType="rating">
+		INSERT INTO rating VALUES(rating_seq.nextval, #{recipe_no}, #{score}, #{users_no})
+	</insert>
+	
+	<update id="updateScore" parameterType="int">
+		UPDATE recipe SET score = (SELECT ROUND(AVG(score), 1) AS avg FROM rating WHERE recipe_no = #{no}) WHERE no = #{no}
+	</update>
+	
+	<!-- 댓글 -->
+	<select id="selectCommentNo" resultType="int">
+		SELECT recipe_comment_seq.nextval FROM dual
+	</select>
+	<!-- no, recipe_no, comment_no, detail, img, write_date, users_no -->
+	<insert id="insertComment" parameterType="recipeComment">
+		INSERT INTO recipe_comment VALUES(#{no}, #{recipe_no}, #{comment_no}, #{detail}, #{img}, sysdate, #{users_no})
+	</insert>
+	
+	 <select id="selectComment" parameterType="int" resultType="map">
+		SELECT r.*, u.name AS users_name, u.img AS users_img FROM recipe_comment r, users u WHERE recipe_no = #{no} AND r.users_no = u.no ORDER BY r.no
+	</select>  
+	<!-- <select id="selectComment" parameterType="int" resultType="recipeComment">
+		SELECT r.*, u.name AS users_name, u.img AS users_img FROM recipe_comment r, users u WHERE recipe_no = #{no} AND r.users_no = u.no ORDER BY r.no
+	</select>  --> 
+	
+	<select id="selectMap" resultType="recipe" parameterType="map">
+		select * from recipe <!-- 레시피 테이블의 모든 데이터 조회 -->
+			<if test="type_no != 0"> <!--만약 타입이 있다면 -->
+				where type_no = #{type_no} <!-- 타입 조건 써주기 -->
+			</if>
+			<if test="situation_no != 0"> <!-- 상황이 있다면(대전제) -->
+				<choose>
+					<when test="type_no != 0"> <!-- 타입이 있다면 -->
+						and <!-- 타입조건 다음의 조건을 넣기 위해 and -->
+					</when>
+					<otherwise><!-- 타입이 없다면( 아까 타입조건도 없었을 것 -->
+						where  <!-- 첫 조건을 위해 where -->
+					</otherwise>
+				</choose>
+				situation_no = #{situation_no} <!-- 상황 조건 써주기 -->
+			</if>
+			<if test="method_no != 0"> <!-- 방법이 있다면(대전제) -->
+				<choose>
+					<when test="type_no != 0 || situation_no != 0"> <!-- 타입이나 상황이 있을 때 -->
+						and  <!-- 둘 중에 하나라도 있으면 그 조건 뒤에 다음조건을 넣어야 하니까 and -->
+					</when>
+					<otherwise><!-- 타입도 없고 상황도 없을 떄 -->
+						where <!-- 첫 조건 입력하기 위해 where -->
+					</otherwise> 
+				</choose>
+				method_no = #{method_no} <!-- 방법 조건 추가 -->
+			</if>
+			<if test="ingre_no != 0"><!-- 재료가 있다면(대전제) -->
+				<choose>
+					<when test="type_no != 0 || situation_no != 0 || method_no != 0"> <!-- 타입이나 상황 또는 방법이 존재할 때 -->
+						and <!-- 지금까지 썼던 조건 뒤에 조건 더 추가해야 하니까 and -->
+					</when>
+					<otherwise> <!-- 타입,상황,방법이 모두 없다면 -->
+						where  <!-- 새로운 조건을 써야 하니까 where -->
+					</otherwise>
+				</choose>
+				ingre_no = #{ingre_no} <!-- 방법 조건 추가 -->
+			</if>
+		order by no desc  <!-- 레시피 고유번호 내림차순으로 정렬 -->
+	</select>
+	
+		<select id="getListNum" resultType="int" parameterType="map"> <!-- 순서가 상관 없으니까 map인가?? -->
+		select count(*) from recipe <!-- 레시피 개수 조회 -->
+			<if test="type_no != 0"> <!-- 타입이 있다면?인 듯  -->
+				where type_no = #{type_no} <!-- 입력한 타입과 같을 때(이 타입인 애들 보여줘) -->
+			</if>
+			<if test="situation_no != 0"> <!-- 상황이 있다면(대전제) -->
+				<choose>
+					<when test="type_no != 0"><!-- 타입이 있다면 -->
+						and  <!--(and니까 조건 추가)  -->
+					</when>
+					<otherwise><!-- 타입이 없다면 -->
+						where  <!-- 타입이 없으니까 type조건 없이 where만 쓰고 아래로 토스 -->
+					</otherwise>
+				</choose>
+				situation_no = #{situation_no} <!-- 상황이 입력한 값과 같을 때(이 상황인 애들 보여줘) -->
+			</if>
+			<if test="method_no != 0"> <!-- 방법이 있다면(대전제) -->
+				<choose>
+					<when test="type_no != 0 || situation_no != 0"> <!--타입 또는 상황이 있다면 -->
+						and <!-- 타입과 상황조건은 이미 있고 그 뒤로 조건 추가 -->
+					</when>
+					<otherwise> <!-- 타입과 상황이 없다면 -->
+						where <!-- 둘 다 없으면 지금까지 조건은 없었음 이번에도 없으니까 where만 쓰고 아래로 토스 -->
+					</otherwise>
+				</choose>
+				method_no = #{method_no} <!-- 방법이 입력한 것과 같을 떄(이 방법인 애들 보여줘) -->
+			</if>
+			<if test="ingre_no != 0"> <!-- 재료가 있다면(대전제) -->
+				<choose>
+					<when test="type_no != 0 || situation_no != 0 || method_no != 0"> <!-- 타입 또는 상황 또는 방법이 있을 때 -->
+						and  <!-- 지금까지 조건들 플러스 다음 조건 추가하려함 -->
+					</when>
+					<otherwise> <!-- 타입,상황,방법이 모두 없다면 -->
+						where <!-- 이제 재료별 조건만 남음 -->
+					</otherwise>
+				</choose>
+				ingre_no = #{ingre_no} <!-- 재료가 입력한 것과 같을 때(이 재료인 애들 보여줘) -->
+			</if>
+		order by no desc <!--레시피 고유번호 내림차순으로 정렬  -->
+	</select>
+</mapper>

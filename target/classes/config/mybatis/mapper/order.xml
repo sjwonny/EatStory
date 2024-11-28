@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="order">
+
+	<insert id="insertOrderList">
+		INSERT INTO order_list(
+		no, users_no, status,
+		order_date, used_mileage, pay_price, delibery_price, discount_price,
+		pay_kind, delivery_detail_no, refund)
+		values (order_list_seq.nextval,
+		#{usersNo}, 0, sysdate, 0, #{totalPrice}, #{totalDeliveryPrice}, 0, 0,
+		0, 0)
+		)
+	</insert>
+
+
+</mapper>

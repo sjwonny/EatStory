@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	<annotation-driven />
+
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<context:component-scan
+		base-package="com.increpas.eatstory" />
+
+	<beans:bean class="controller.login.LoginController">
+		<beans:constructor-arg ref="loginService" />
+	</beans:bean>
+
+	<beans:bean class="controller.users.UsersController">
+		<beans:constructor-arg ref="usersService" />
+	</beans:bean>
+
+	<beans:bean class="controller.recipe.RecipeController">
+		<beans:constructor-arg ref="recipeService" />
+	</beans:bean>
+
+	<beans:bean class="controller.manager.ManagerController">
+		<beans:constructor-arg ref="managerService" />
+	</beans:bean>
+
+	<beans:bean class="controller.goods.GoodsController">
+		<beans:constructor-arg ref="goodsService" />
+	</beans:bean>
+
+	<beans:bean class="controller.qna.QnaController">
+		<beans:constructor-arg ref="qnaService" />
+	</beans:bean>
+
+</beans:beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

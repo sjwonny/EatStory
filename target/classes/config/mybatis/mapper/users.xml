@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+
+	<!-- 로그인 할 때 아이디 비번 확인 -->
+	<select id="checkLogin" resultType="int" parameterType="users">
+		select no
+		from users where id = #{id} and pw = #{pw}
+	</select>
+
+	<!-- 아이디 찾기 -->
+	<select id="findId" resultType="String" parameterType="users">
+		select id
+		from users where name = #{name} and phone = #{phone}
+	</select>
+
+	<!-- 비밀번호 찾기 -->
+	<select id="findPw" resultType="String" parameterType="users">
+		select pw
+		from users where id = #{id} and name = #{name} and phone = #{phone}
+	</select>
+
+	<!-- 회원가입 -->
+	<insert id="insert" parameterType="users">
+		insert into users (no, id, pw,
+		phone, birth, email, name, kind, state, img, msg, join_date, mileage)
+		values (users_seq.nextval, #{id}, #{pw}, #{phone}, #{birth}, #{email},
+		#{name}, 0, 0, #{img}, null ,sysdate , 0)
+	</insert>
+
+	<!-- 한 유저 정보 출력 -->
+	<select id="selectOne" parameterType="int" resultType="users">
+		select *
+		from users where no = #{no}
+	</select>
+
+	<!-- 회원정보 수정 -->
+	<update id="update" parameterType="users">
+		update users set email = #{email}, phone = #{phone}, birth = #{birth},
+		name = #{name}
+		<if test="pw != null and pw != ''">
+			, pw = #{pw}
+		</if>
+		where no = #{no}
+	</update>
+
+	<!-- 회원정보 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from users where no =
+		#{no}
+	</delete>
+
+	<!-- 아이디 중복확인 -->
+	<select id="checkId" parameterType="String" resultType="String">
+		select id
+		from users where id = #{id}
+	</select>
+
+	<!-- 이메일 중복 확인 -->
+	<select id="checkEmail" parameterType="String"
+		resultType="String">
+		SELECT email FROM users WHERE email = #{email}
+	</select>
+
+	<!-- 전화번호 중복 확인 -->
+	<select id="checkPhone" parameterType="String"
+		resultType="String">
+		SELECT phone FROM users WHERE phone = #{phone}
+	</select>
+
+	<!-- 비밀번호 수정 -->
+	<update id="updatePw" parameterType="users">
+		update users set pw = #{pw}
+		where id = #{id}
+	</update>
+
+</mapper>
+
+
+
+
+
+

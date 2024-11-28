@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="usersDao" class="dao.users.UsersDAO">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+	<bean id="recipeDao" class="dao.recipe.RecipeDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="typeDao" class="dao.type.TypeDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="situationDao" class="dao.situation.SituationDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="methodDao" class="dao.method.MethodDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="ingreDao" class="dao.ingre.IngreDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="managerDao" class="dao.manager.ManagerDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="goodsDao" class="dao.goods.GoodsDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="cartDao" class="dao.cart.CartDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="wishDao" class="dao.wish.WishDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="orderDao" class="dao.orderlist.OrderListDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+	
+	<bean id="brandDao" class="dao.brand.BrandDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	 
+	<bean id="qnaDao" class="dao.qna.QnaDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean> 
+
+</beans>

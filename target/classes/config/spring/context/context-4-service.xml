@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="loginService" class="service.login.LoginService">
+	      	<property name="usersDao" ref="usersDao" />
+	</bean>
+
+	<bean id="usersService" class="service.users.UsersService">
+		<constructor-arg ref="usersDao" />
+	</bean>
+
+	<bean id="recipeService" class="service.recipe.RecipeService">
+		<constructor-arg ref="recipeDao" />
+		<constructor-arg ref="typeDao" />
+		<constructor-arg ref="situationDao" />
+		<constructor-arg ref="methodDao" />
+		<constructor-arg ref="ingreDao" />
+	</bean>
+
+	<bean id="managerService" class="service.manager.ManagerService">
+		<constructor-arg ref="managerDao" />
+	</bean>
+
+	<bean id="goodsService" class="service.goods.GoodsService">
+		<constructor-arg ref="goodsDao" />
+		<constructor-arg ref="cartDao" />
+		<constructor-arg ref="wishDao" />
+		<constructor-arg ref="orderDao" />
+		<constructor-arg ref="brandDao"/> 
+	</bean>
+	
+	<bean id="qnaService" class="service.qna.QnaService">
+		<constructor-arg ref="qnaDao" />
+	</bean>
+
+</beans>

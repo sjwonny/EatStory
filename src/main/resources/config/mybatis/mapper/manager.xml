@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="manager">
+	<select id="checkLogin" resultType="manager" parameterType="manager">
+		SELECT * FROM manager WHERE email=#{email} AND pw=#{pw}
+	</select>
+	
+	<select id="selectQnaList" resultType="qna">
+		SELECT q.*, u.name AS users_name, m.name AS admin_name FROM qna q INNER JOIN users u ON q.users_no = u.no LEFT join manager m ON q.manager_no = m.no ORDER BY q.no
+	</select>
+	
+	<select id="selectQnaImage" resultType="String" parameterType="int">
+		SELECT filename FROM qna_image WHERE qna_no = #{no}
+	</select>
+	
+	<select id="selectQnaDetail" resultType="qna" parameterType="int">
+		SELECT q.*, u.name AS users_name, m.name AS admin_name FROM qna q INNER JOIN users u ON q.users_no = u.no LEFT join manager m ON q.manager_no = m.no WHERE q.no = #{no}
+	</select>
+	
+	<update id="updateAnswer" parameterType="qna">
+		UPDATE qna SET admin_no = #{admin_no}, answer = #{answer}, answer_date = sysdate, qna_status = 1 WHERE no = #{no}
+	</update>
+	
+	<update id="deleteAnswer" parameterType="int">
+		UPDATE qna SET admin_no = null, answer = null, answer_date = null, qna_status = 0 WHERE no = #{no}
+	</update>
+	
+	<select id="selectBrandList" resultType="brand">
+		SELECT * FROM brand ORDER BY no 
+	</select>
+	
+	<select id="selectBrandNo" resultType="int">
+		SELECT brand_seq.nextval FROM dual
+	</select>
+	
+	<insert id="insertBrand" parameterType="brand">
+		INSERT INTO brand VALUES(#{no}, #{name}, #{ceo}, #{email}, #{report_num}, #{locat}, #{phone}, #{business_num}, sysdate)
+	</insert>
+	
+	
+	<!-- 상품 등록 -->
+	<select id="selectGoodsNo" resultType="int">
+		SELECT goods_seq.nextval FROM dual
+	</select>
+	
+	<insert id="insertGoods" parameterType="goods">
+		INSERT INTO goods VALUES(#{no}, #{brand_no}, #{name}, #{sub_info}, #{price}, #{delivery_price},
+		#{free_condition}, #{dc_price}, #{dc_amount}, #{status}, #{rating}, #{delivery_info},
+		#{hot_deal})
+	</insert>
+	
+	<select id="selectGoods" resultType="goods">
+		SELECT g.*, b.name AS brand_name FROM goods g, brand b WHERE g.brand_no = b.no ORDER BY g.no
+	</select>
+	
+	<insert id="insertGoodsOption" parameterType="goodsOption">
+		INSERT INTO goods_option VALUES(goods_option_seq.nextval, #{goods_no} , #{detail}, #{price}, #{count})
+	</insert>
+	
+	<select id="selectGoodsVo" parameterType="int" resultType="goods">
+		SELECT g.*, b.name AS brand_name FROM goods g, brand b WHERE g.brand_no = b.no AND g.no = #{no}
+	</select>
+	
+	<select id="selectGoodsOptionVo" parameterType="int" resultType="goodsOption" >
+		SELECT * FROM goods_option WHERE goods_no = #{no} ORDER BY no
+	</select>
+	
+	<update id="updateGoods" parameterType="goods">
+		UPDATE goods SET name = #{name}, sub_info = #{sub_info}, price = #{price}, 
+						 delivery_price = #{delivery_price}, free_condition = #{free_condition},
+						 dc_price = #{dc_price}, dc_amount = #{dc_amount}, status = #{status},
+						 delivery_info = #{delivery_info}, hot_deal = #{hot_deal}
+					 WHERE no = #{no} 
+	</update>
+
+	<select id="selectGoodsOptionList" parameterType="int" resultType="int">
+		SELECT no FROM goods_option WHERE goods_no = #{no} ORDER BY no
+	</select>	
+	
+	<update id="updateGoodsOption" parameterType="goodsOption">
+		UPDATE goods_option SET detail = #{detail}, price = #{price}, count = #{count} WHERE no = #{no}
+	</update>	
+	
+	<delete id="deleteGoodsOption" parameterType="int">
+		DELETE FROM goods_option WHERE no = #{no}
+	</delete>
+	
+	<select id="selectGoodsImgCount" parameterType="int" resultType="int">
+		SELECT img_count FROM goods WHERE no = #{no}
+	</select>
+	
+	<select id="selectGoodsDetailImgCount"	parameterType="int" resultType="int">
+		SELECT detail_img_count FROM goods WHERE no = #{no}
+	</select>
+	
+	
+	<!-- goodsImgVO -->
+	<insert id="insertGoodsImg" parameterType="goodsImg">
+		INSERT INTO goods_img VALUES(goods_img_seq.nextval, #{goods_no}, #{img}, #{seq})
+	</insert>
+	
+	<select id="selectGoodsImg" parameterType="int" resultType="goodsImg">
+		SELECT * FROM goods_img WHERE goods_no = #{no}
+	</select>
+		
+	<delete id="deleteGoodsImg" parameterType="goodsImg">
+		DELETE FROM goods_img WHERE goods_no = #{goods_no} AND img = #{img}
+	</delete>
+	
+	<select id="selectGoodsImgSeq" parameterType="int" resultType="int">
+		SELECT MAX(seq) FROM goods_img WHERE goods_no = #{goods_no}
+	</select>
+	
+	<!-- goodsDetailVO -->
+	<insert id="insertGoodsDetailImg" parameterType="goodsDetailImg">
+		INSERT INTO goods_detail_img VALUES(goods_img_seq.nextval, #{goods_no}, #{img}, #{seq})
+	</insert>
+	
+	<select id="selectGoodsDetailImg" parameterType="int" resultType="goodsDetailImg">
+		SELECT * FROM goods_detail_img WHERE goods_no = #{no}
+	</select>
+	
+	<delete id="deleteGoodsDetailImg" parameterType="goodsDetailImg">
+		DELETE FROM goods_detail_img WHERE goods_no = #{goods_no} AND img = #{img}
+	</delete>
+	
+	<select id="selectGoodsDetailImgSeq" parameterType="int" resultType="int">
+		SELECT MAX(seq) FROM goods_detail_img WHERE goods_no = #{goods_no}
+	</select>
+
+	
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="follow">
+<!-- 
+	 팔로우 기능
+	<insert id = "follow" parameterType="follow">
+		insert into follow values(follow_seq.nextval,#{followingNo},#{followedNo})
+	</insert>
+	
+	
+	팔로우 기능
+	<insert id="addFollow" parameterType="map">
+  INSERT INTO follow (follow_no, following_user_id, followed_user_id)
+  VALUES (follow_seq.NEXTVAL, #{following_user_id}, #{followed_user_id})
+</insert>
+	
+	
+	
+	언팔로우 기능
+	<delete id="unfollow">
+		delete follow_no from follow where following_user_id=#{followingNo} and followed_user_id=#{followedNo}
+	</delete>
+	
+	언팔로우 기능
+	<delete id="removeFollow" parameterType="map">
+  DELETE FROM follow
+  WHERE following_user_id = #{following_user_id} AND followed_user_id = #{followed_user_id}
+</delete>
+	
+	
+	
+	
+	팔로우 유무 조회
+	<select id = "isFollow" resultType="int">
+		select count(*) from follow where following_user_id=#{followingNo} and followed_user_id=#{followedNo}
+	</select>
+
+
+	
+	팔로워 목록(나를 팔로우 한 사람) 그 사람의 아이디, 프로필사진, 올린 레시피 목록 보고싶음
+	<select id="FollowerList" parameterType="int" resultType="map">
+	  	select f.following_user_id, u.id AS user_id, u.img, r.no
+ 	    from follow f,users u,recipe r 
+ 	    where f.following_user_id  = #{followingNo}
+ 	    and u.no = r.user_no
+	</select>
+	
+	
+	팔로워 목록(나를 팔로우 한 사람) 그 사람의 아이디, 프로필사진, 올린 레시피 목록 보고싶음
+	<select id="getFollowersWithUserInfo" parameterType="number" resultType="map">
+  SELECT users.id, users.img, recipe.title
+  FROM users
+  INNER JOIN follow ON users.no = follow.following_user_id
+  INNER JOIN recipe ON users.no = recipe.user_no
+  WHERE follow.followed_user_id = #{user_id}
+</select>
+	
+	
+	
+	
+	
+	
+	
+
+	팔로잉 목록(내가 팔로우 한 사람)
+	<select id="FollowingList" parameterType="int" resultType="map">
+		select f.followed_user_id,u.id AS user_id, u.img, r.no
+ 	    from follow f,users u,recipe r
+ 	    where f.followed_user_id = #{followedNo}
+	    and u.no = r.user_no
+	</select>
+
+
+	탈퇴시 팔로우 삭제
+	<delete id="deleteFollow" parameterType="int">
+		delete follow where following_user_id = #{userId} or followed-user_id= #{userId}
+	</delete>
+	 -->
+
+</mapper>

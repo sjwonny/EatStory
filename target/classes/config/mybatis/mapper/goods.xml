@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="goods">
+
+	<select id="selectGoods" resultType="goods">
+		SELECT i.img AS store_img,
+		b.name AS brand_name,
+		g.* FROM goods
+		g, brand b, goods_img i WHERE g.no
+		= i.goods_no
+		AND
+		i.seq=1 AND g.brand_no = b.no
+	</select>
+
+	<select id="selectCount" resultType="int">
+		SELECT count(*) FROM goods
+	</select>
+
+	<select id="selectGoodsNo" resultType="int">
+		SELECT goods_seq.nextval
+		FROM dual
+	</select>
+
+	<select id="selectGoodsDetail" parameterType="int"
+		resultType="goods">
+		SELECT * FROM goods WHERE no = #{no}
+	</select>
+
+	<select id="selectGoodsOption" parameterType="int"
+		resultType="goodsOption">
+		SELECT * FROM goods_option WHERE goods_no
+		=
+		#{no}
+	</select>
+
+	<select id="selectGoodsImgList" parameterType="int"
+		resultType="goodsImg">
+		SELECT * FROM goods_img WHERE goods_no =
+		#{no}
+	</select>
+
+	<select id="selectGoodsDetailImgList" parameterType="int"
+		resultType="goodsDetailImg">
+		SELECT img FROM goods_detail_img WHERE
+		goods_no = #{no}
+	</select>
+
+	<select id="detailImageCount" parameterType="int"
+		resultType="int">
+		SELECT count(*) FROM goods_detail_img WHERE goods_no =
+		#{no}
+	</select>
+
+	<select id="selectOptionListNo" resultType="List">
+		SELECT no FROM
+		goods_option
+	</select>
+
+   
+
+
+	
+
+	<!-- 장바구니 출력 -->
+	<select id="selectCart" parameterType="int" resultType="goods">
+		SELECT
+		c.no AS cartNo,
+		g.no,
+		o.no,
+		b.name AS brand_name,
+		i.img AS store_img,
+		g.name,
+		o.detail,
+		c.quantity,
+		o.price AS option_price,
+		g.delivery_price,
+		g.free_condition
+		FROM
+		brand b,
+		goods_img i,
+		goods g,
+		goods_option o,
+		cart c,
+		users u
+		WHERE
+		u.no = #{usersNo}
+		AND u.no = c.users_no
+		AND o.no =
+		c.goods_option_no
+		AND
+		g.no = i.goods_no
+		AND g.no = o.goods_no
+		AND b.no =
+		g.brand_no
+		AND i.seq =
+		1
+		ORDER BY
+		c.no
+	</select>
+
+	<!-- 장바구니에서 구매목록으로 이동 -->
+	<select id="purchaseCart" parameterType="int" resultType="goods">
+		SELECT
+		c.no AS cartNo,
+		g.no,
+		o.no,
+		b.name AS brand_name,
+		i.img AS store_img,
+		g.name,
+		o.detail,
+		c.quantity,
+		o.price AS option_price,
+		g.delivery_price,
+		g.free_condition
+		FROM
+		brand b,
+		goods_img i,
+		goods g,
+		goods_option o,
+		cart c,
+		users u
+		WHERE
+		c.no = #{cartNo}
+		AND u.no =
+		c.users_no
+		AND o.no =
+		c.goods_option_no
+		AND
+		g.no = i.goods_no
+		AND g.no =
+		o.goods_no
+		AND b.no =
+		g.brand_no
+		AND i.seq =
+		1
+		ORDER BY
+		c.no
+	</select>
+
+	<insert id="insertDelivery">
+		INSERT
+	</insert>
+
+	<select id="selectGoodsList" parameterType="int" resultType="goods">
+		select g.*, b.name as bName, i.img
+		from goods g, brand b, goods_img i 
+		WHERE g.no = i.goods_no AND b.no = g.brand_no and g.brand_no = #{no}
+	</select>
+
+
+
+
+
+</mapper>

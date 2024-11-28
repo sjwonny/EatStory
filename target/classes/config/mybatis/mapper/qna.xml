@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+
+	<select id="selectList" resultType="qna" parameterType="int">
+		SELECT *
+		FROM qna WHERE users_no=#{userNo} ORDER BY no DESC     
+	</select>
+
+	<select id="selectCount" resultType="int" parameterType="int">
+		SELECT
+		count(*) FROM qna WHERE users_no=#{no}         
+	</select>
+
+	<insert id="insertQna" parameterType="qna">
+		INSERT INTO qna
+		VALUES(#{no},#{users_no},#{category},#{phone},#{email},#{title},#{content},0,sysdate,null,null,null,null)
+	</insert>
+
+	<select id="selectQnaNo" resultType="int">
+		SELECT qna_seq.nextval FROM
+		dual
+	</select>
+
+	<insert id="insertQnaImage" parameterType="qnaImage">
+		INSERT INTO qna_image
+		VALUES(qna_image_seq.nextval, #{qna_no}, #{filename})
+	</insert> 
+
+	<select id="selectQnaImageVoList" parameterType="int"
+		resultType="qnaImage">
+		SELECT * FROM qna_image WHERE qna_no = #{no}
+	</select>
+
+	<delete id="deleteQnaImage" parameterType="int">
+		DELETE qna_image WHERE
+		qna_no = #{no}
+	</delete>
+
+	<select id="getContent" parameterType="int" resultType="map">
+		SELECT
+		q.*, u.name user_ FROM qna q, users u WHERE
+		q.users_no = u.no AND q.no
+		= #{no}
+	</select>
+
+	<select id="selectContent" parameterType="int" resultType="qna"> <!-- 매개변수 : qna글번호  -->
+		SELECT q.*, u.name AS users_name FROM qna q, users u WHERE q.no = #{no} AND q.users_no = u.no <!-- qna의 모든데이터와 작성자이름 -->
+	</select>
+
+	<update id="updateQna" parameterType="qna">
+		UPDATE qna SET
+		title=#{title}, content=#{content}, category=#{category},
+		phone=#{phone}, email=#{email} WHERE
+		no=#{no}
+	</update> 
+	
+	<update id="updateQnaImgs" parameterType="qnaImage">
+		update qna_image set 
+	</update>
+
+	<delete id="deleteQna" parameterType="int">
+		DELETE qna WHERE no =#{no}
+	</delete>
+
+
+
+</mapper>
