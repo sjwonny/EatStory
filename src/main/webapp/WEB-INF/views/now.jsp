@@ -434,14 +434,12 @@ addButton.onclick = addIngredientGroup;
 					document.write.submit();
 				}
 			}  
-		  //////////////////////////////////////////////////////
 
 
 				
 </script>
 </head>
 <body>
-<%-- <%@ include file="/WEB-INF/views/layout/header.jsp" %> --%>
 
 <div class="rcpWrite" align ="">
     <div class="rcpTitle">레시피 등록</div>
@@ -470,106 +468,108 @@ addButton.onclick = addIngredientGroup;
 
       <div class="category">
       <p>카테고리</p>
-        <select name="kind">
-<option value="">종류별</option><option value="k0">밑반찬</option>
-<option value="k1">메인반찬</option>
-<option value="k2">국/탕</option>
-<option value="k3">찌개</option>
-<option value="k4">디저트</option>
-<option value="k5">면/만두</option>
-<option value="k6">밥/죽/떡</option>
-<option value="k7">퓨전</option>
-<option value="k8">김치/젓갈/장류</option>
-<option value="k9">양념/소스/잼</option>
-<option value="k10">양식</option>
-<option value="k11">샐러드</option>
-<option value="k12">스프</option>
-<option value="k13">빵</option>
-<option value="k14">과자</option>
-<option value="k15">차/음료/술</option>
-<option value="k16">기타</option>
-</select>
-        <select name="environment" >
-<option value="">상황별</option><option value="e0">일상</option>
-<option value="e1">초스피드</option>
-<option value="e2">손님접대</option>
-<option value="e3">술안주</option>
-<option value="e4">다이어트</option>
-<option value="e5">도시락</option>
-<option value="e6">영양식</option>
-<option value="e7">간식</option>
-<option value="e8">야식</option>
-<option value="e9">푸드스타일링</option>
-<option value="e10">해장</option>
-<option value="e11">명절</option>
-<option value="e12">이유식</option>
-<option value="e13">기타</option>
-</select>
-        <select name="method">
-<option value="">방법별</option><option value="m0">볶음</option>
-<option value="m1">끓이기</option>
-<option value="m2">부침</option>
-<option value="m3">조림</option>
-<option value="m4">무침</option>
-<option value="m5">비빔</option>
-<option value="m6">찜</option>
-<option value="m7">절임</option>
-<option value="m8">튀김</option>
-<option value="m9">삶기</option>
-<option value="m10">굽기</option>
-<option value="m11">데치기</option>
-<option value="m12">회</option>
-<option value="m13">기타</option>
-</select>
-        <select name=ingredient">
-<option value="">재료별</option><option value="i0">소고기</option>
-<option value="i1">돼지고기</option>
-<option value="i2">닭고기</option>
-<option value="i3">육류</option>
-<option value="i4">채소류</option>
-<option value="i5">해물류</option>
-<option value="i6">달걀/유제품</option>
-<option value="i7">가공식품류</option>
-<option value="i8">쌀</option>
-<option value="i9">밀가루</option>
-<option value="i10">건어물류</option>
-<option value="i11">버섯류</option>
-<option value="i12">과일류</option>
-<option value="i13">콩/견과류</option>
-<option value="i14">곡류</option>
-<option value="i15">기타</option>
-</select>
-      </div>
+			<select name="kind">
+				<option value="">종류별</option>
+				<option value="k0">밑반찬</option>
+				<option value="k1">메인반찬</option>
+				<option value="k2">국/탕</option>
+				<option value="k3">찌개</option>
+				<option value="k4">디저트</option>
+				<option value="k5">면/만두</option>
+				<option value="k6">밥/죽/떡</option>
+				<option value="k7">퓨전</option>
+				<option value="k8">김치/젓갈/장류</option>
+				<option value="k9">양념/소스/잼</option>
+				<option value="k10">양식</option>
+				<option value="k11">샐러드</option>
+				<option value="k12">스프</option>
+				<option value="k13">빵</option>
+				<option value="k14">과자</option>
+				<option value="k15">차/음료/술</option>
+				<option value="k16">기타</option>
+			</select> <select name="environment">
+				<option value="">상황별</option>
+				<option value="e0">일상</option>
+				<option value="e1">초스피드</option>
+				<option value="e2">손님접대</option>
+				<option value="e3">술안주</option>
+				<option value="e4">다이어트</option>
+				<option value="e5">도시락</option>
+				<option value="e6">영양식</option>
+				<option value="e7">간식</option>
+				<option value="e8">야식</option>
+				<option value="e9">푸드스타일링</option>
+				<option value="e10">해장</option>
+				<option value="e11">명절</option>
+				<option value="e12">이유식</option>
+				<option value="e13">기타</option>
+			</select> <select name="method">
+				<option value="">방법별</option>
+				<option value="m0">볶음</option>
+				<option value="m1">끓이기</option>
+				<option value="m2">부침</option>
+				<option value="m3">조림</option>
+				<option value="m4">무침</option>
+				<option value="m5">비빔</option>
+				<option value="m6">찜</option>
+				<option value="m7">절임</option>
+				<option value="m8">튀김</option>
+				<option value="m9">삶기</option>
+				<option value="m10">굽기</option>
+				<option value="m11">데치기</option>
+				<option value="m12">회</option>
+				<option value="m13">기타</option>
+			</select> <select name=ingredient">
+				<option value="">재료별</option>
+				<option value="i0">소고기</option>
+				<option value="i1">돼지고기</option>
+				<option value="i2">닭고기</option>
+				<option value="i3">육류</option>
+				<option value="i4">채소류</option>
+				<option value="i5">해물류</option>
+				<option value="i6">달걀/유제품</option>
+				<option value="i7">가공식품류</option>
+				<option value="i8">쌀</option>
+				<option value="i9">밀가루</option>
+				<option value="i10">건어물류</option>
+				<option value="i11">버섯류</option>
+				<option value="i12">과일류</option>
+				<option value="i13">콩/견과류</option>
+				<option value="i14">곡류</option>
+				<option value="i15">기타</option>
+			</select>
+		</div>
       
       <div class="information">
       <p>요리정보</p>
-        <select name="person">
-<option value="">인원</option><option value="p1">1인분</option>
-<option value="p2">2인분</option>
-<option value="p3">3인분</option>
-<option value="p4">4인분</option>
-<option value="p5">5인분</option>
-<option value="p6">6인분이상</option>
-</select>
-        <select name="time">
-<option value="">시간</option><option value="t5">5분이내</option>
-<option value="t10">10분이내</option>
-<option value="t15">15분이내</option>
-<option value="t20">20분이내</option>
-<option value="t30">30분이내</option>
-<option value="t60">60분이내</option>
-<option value="t90">90분이내</option>
-<option value="t120">2시간이내</option>
-<option value="t999">2시간이상</option>
-</select>
-        <select name="degree">
-<option value="">난이도</option><option value="d0">아무나</option>
-<option value="d1">초급</option>
-<option value="d2">중급</option>
-<option value="d3">고급</option>
-<option value="d4">신의경지</option>
-</select>
-      </div>
+			<select name="person">
+				<option value="">인원</option>
+				<option value="p1">1인분</option>
+				<option value="p2">2인분</option>
+				<option value="p3">3인분</option>
+				<option value="p4">4인분</option>
+				<option value="p5">5인분</option>
+				<option value="p6">6인분이상</option>
+			</select> <select name="time">
+				<option value="">시간</option>
+				<option value="t5">5분이내</option>
+				<option value="t10">10분이내</option>
+				<option value="t15">15분이내</option>
+				<option value="t20">20분이내</option>
+				<option value="t30">30분이내</option>
+				<option value="t60">60분이내</option>
+				<option value="t90">90분이내</option>
+				<option value="t120">2시간이내</option>
+				<option value="t999">2시간이상</option>
+			</select> <select name="degree">
+				<option value="">난이도</option>
+				<option value="d0">아무나</option>
+				<option value="d1">초급</option>
+				<option value="d2">중급</option>
+				<option value="d3">고급</option>
+				<option value="d4">신의경지</option>
+			</select>
+		</div>
      </div>
     
      <div class="ingredientSection">

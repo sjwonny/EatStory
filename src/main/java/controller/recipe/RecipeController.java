@@ -110,12 +110,12 @@ public class RecipeController {
 		model.addAttribute("mList", mList);
 		model.addAttribute("iList", iList);
 
-		model.addAttribute("type_no", type_no);
-		model.addAttribute("situation_no", situation_no);
-		model.addAttribute("method_no", method_no);
-		model.addAttribute("ingre_no", ingre_no);
+		model.addAttribute("type_no", type_no); //타입
+		model.addAttribute("situation_no", situation_no); //상황
+		model.addAttribute("method_no", method_no); //방법
+		model.addAttribute("ingre_no", ingre_no); //재료
 
-		model.addAttribute("paging", paging);
+		model.addAttribute("paging", paging); //페이징
 		model.addAttribute("boardCount", boardCount);
 
 		model.addAttribute("page_value", "seperate");
