@@ -105,22 +105,22 @@ table.filterTable tr:last-child td {
 					<td>
 						&nbsp;
 						<c:choose>
-							<c:when test="${ type_no == 0}">
-								<span class="selected">전체</span>&nbsp;
+							<c:when test="${ type_no == 0}"> <!-- 타입이 선택되지 않았을 때 -->
+								<span class="selected">전체</span>&nbsp; 
 							</c:when>
-							<c:otherwise>
+							<c:otherwise> <!-- 타입이 선택되었을 때 --><!-- 전체라는 항목을 클릭할 수 있게 링크태그 추가 -->
 								<a href="${cpath }/recipe/seperate?type_no=0&situation_no=${situation_no}&method_no=${method_no}&ingre_no=${ingre_no}" 
-										class="filters">전체</a>&nbsp;
+										class="filters">전체</a>&nbsp; 
 							</c:otherwise>
 						</c:choose>
-						<c:forEach var="dto" items="${tList }">
+						<c:forEach var="dto" items="${tList }"> <!-- 타입 리스트 -->
 							<c:choose>
-								<c:when test="${ type_no == dto.no}">
-									<span class="selected">${dto.type }</span>&nbsp;
+								<c:when test="${type_no == dto.no}"> <!-- 선택한 타입이 리스트 항목과 같다면 = 타입이 현재 선택된애라면 -->
+									<span class="selected">${dto.type }</span>&nbsp;<!-- 링크가 따로 없음 -->
 								</c:when>
-								<c:otherwise>
-									<a href="${cpath }/recipe/seperate?type_no=${dto.no }&situation_no=${situation_no}&method_no=${method_no}&ingre_no=${ingre_no}" 
-											class="filters">${dto.type }</a>&nbsp;
+								<c:otherwise><!-- 선택한 타입이 아니라면 -->
+									<a href="${cpath}/recipe/seperate?type_no=${dto.no }&situation_no=${situation_no}&method_no=${method_no}&ingre_no=${ingre_no}" 
+											class="filters">${dto.type }</a>&nbsp; <!-- 선택되지 않은 다른 타입리스트들에 링크가 생김 -->
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -212,18 +212,24 @@ table.filterTable tr:last-child td {
 			<br>
 		</div>
 		<div>
+		<c:choose>
+				<c:when test="${list == null}"> <!-- 리스트가 없다면 -->
+					<p class="no-recipe-msg">레시피가 존재하지 않습니다.</p>
+				</c:when>
+				<c:otherwise>
 			<table id="contents">
 				<% int i = 0; %>
 				<tr>
-				<c:forEach var="dto" items="${list }">
+				<c:forEach var="dto" items="${list}">
 					<% if (i != 0 && i % 4 == 0) { %>
 						</tr>
 						<tr>
 					<% } %>
 					<td>
-						<a href="#"><img src="${cpath}/resources/recipeImages/${eimglist.get(i).getImg() }" width="240px"></a>
+						<a href="${pageContext.request.contextPath}/recipe/${dto.no}"><img src="${pageContext.request.contextPath}/resources/recipe/${dto.no}/${img.img}" width="240px">
 						<p>${dto.title }</p>
 						<p></p>
+						</a>
 					</td>
 					<% i++; %>
 				</c:forEach>
@@ -235,6 +241,8 @@ table.filterTable tr:last-child td {
 					<td></td>
 				</tr>
 			</table>
+			</c:otherwise>
+		</c:choose>
 		</div>
 	</div>
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>

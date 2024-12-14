@@ -70,40 +70,28 @@ public class RecipeController {
 
 		Map<String, Object> map = new HashMap<String, Object>(); //맵 객체 생성
 
-		map.put("type_no", type_no); //받아온 타입 번호 맵에 저장
-		map.put("situation_no", situation_no); //받아온 상황 번호 맵에 저장
-		map.put("method_no", method_no); //받아온 방법 번호 맵에 저장
-		map.put("ingre_no", ingre_no); //받아온 재료 번호 맵에 저장
+		map.put("type_no", type_no); 
+		map.put("situation_no", situation_no);
+		map.put("method_no", method_no); 
+		map.put("ingre_no", ingre_no); 
 
-		int boardCount = recipeService.getListNum(map); //조건에 맞는 레시피 개수를 구해서 boardCount 라는 변수에 넣음
+		int boardCount = recipeService.getListNum(map); //조건에 맞는 레시피 개수
 
 		Paging paging = new Paging(page, boardCount); 
 
 		map.put("first", paging.getFirst());
 		map.put("last", paging.getLast());
 
-		List<RecipeVO> list = recipeService.selectMap(map); //레시피의 모든 정보 조회해서 레시피VO타입의 list에 저장 (어떨 때 map을 넣는거지?)
+		List<RecipeVO> list = recipeService.selectMap(map); //레시피의 모든 정보 조회해서 레시피VO타입의 list에 저장 
 
-		List<EndImageVO> eimglist = new ArrayList<EndImageVO>(); // eimglist에 EndImageVO 객체들을 담기, 필요에 따라 eimglist에 EndImageVO 객체를 추가하거나 삭제하여 사용할 수 있음.
-		
-		
-		if (list != null) { //레시피가 있다면
-			for (RecipeVO vo : list) { //list길이만큼 반복
-				EndImageVO evo = new EndImageVO(); //EndImageVO 객체 생성(evo)
-				evo.setRecipe_no(vo.getNo()); //리스트 고유번호를 evo의 레시피 참조키(?)세팅하는데 씀 (궁금한 점 : 여기에 setter써서 하지 않고 sql문에서 recipe_no = #{no} 이런식으로 하면 안되나?)
-				eimglist.add(evo); //이미지vo타입의 list에 evo를 넣는다?? 분류페이지 보류 나중에 다시 공부하기!!!!!!!!
-			}
-		}
-		
-		
 
 		List<TypeVO> tList = recipeService.selectType();
 		List<SituationVO> sList = recipeService.selectSituation();
 		List<MethodVO> mList = recipeService.selectMethod();
 		List<IngreVO> iList = recipeService.selectIngre();
 
+		
 		model.addAttribute("list", list);
-		model.addAttribute("eimglist", eimglist);
 
 		model.addAttribute("tList", tList);
 		model.addAttribute("sList", sList);

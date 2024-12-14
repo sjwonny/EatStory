@@ -114,7 +114,7 @@ public class RecipeDAO {
 		return sqlSession.selectList("recipe.selectComment", no); }
 	
 	public List<RecipeVO> selectMap(Map<String, Object> map) {
-		return sqlSession.selectList("recipe.selectList", map);
+		return sqlSession.selectList("recipe.selectMap", map);
 	}
 
 	public int getListNum(Map<String, Object> map) {

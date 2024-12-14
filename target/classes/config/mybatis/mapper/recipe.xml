@@ -115,75 +115,75 @@
 		SELECT r.*, u.name AS users_name, u.img AS users_img FROM recipe_comment r, users u WHERE recipe_no = #{no} AND r.users_no = u.no ORDER BY r.no
 	</select>  --> 
 	
-	<select id="selectMap" resultType="recipe" parameterType="map">
-		select * from recipe <!-- 레시피 테이블의 모든 데이터 조회 -->
-			<if test="type_no != 0"> <!--만약 타입이 있다면 -->
-				where type_no = #{type_no} <!-- 타입 조건 써주기 -->
+	<!--  <select id="selectMap" resultType="recipe" parameterType="map">
+		select * from recipe 
+			<if test="type_no != 0"> 
+				where type_no = #{type_no} 
 			</if>
-			<if test="situation_no != 0"> <!-- 상황이 있다면(대전제) -->
+			<if test="situation_no != 0"> 
 				<choose>
-					<when test="type_no != 0"> <!-- 타입이 있다면 -->
-						and <!-- 타입조건 다음의 조건을 넣기 위해 and -->
+					<when test="type_no != 0"> 
+						and 
 					</when>
-					<otherwise><!-- 타입이 없다면( 아까 타입조건도 없었을 것 -->
-						where  <!-- 첫 조건을 위해 where -->
+					<otherwise>
+						where  
 					</otherwise>
 				</choose>
-				situation_no = #{situation_no} <!-- 상황 조건 써주기 -->
+				situation_no = #{situation_no} 
 			</if>
-			<if test="method_no != 0"> <!-- 방법이 있다면(대전제) -->
+			<if test="method_no != 0">
 				<choose>
-					<when test="type_no != 0 || situation_no != 0"> <!-- 타입이나 상황이 있을 때 -->
-						and  <!-- 둘 중에 하나라도 있으면 그 조건 뒤에 다음조건을 넣어야 하니까 and -->
+					<when test="type_no != 0 || situation_no != 0"> 
+						and  
 					</when>
-					<otherwise><!-- 타입도 없고 상황도 없을 떄 -->
-						where <!-- 첫 조건 입력하기 위해 where -->
+					<otherwise>
+						where 
 					</otherwise> 
 				</choose>
-				method_no = #{method_no} <!-- 방법 조건 추가 -->
+				method_no = #{method_no} 
 			</if>
-			<if test="ingre_no != 0"><!-- 재료가 있다면(대전제) -->
+			<if test="ingre_no != 0">
 				<choose>
-					<when test="type_no != 0 || situation_no != 0 || method_no != 0"> <!-- 타입이나 상황 또는 방법이 존재할 때 -->
-						and <!-- 지금까지 썼던 조건 뒤에 조건 더 추가해야 하니까 and -->
+					<when test="type_no != 0 || situation_no != 0 || method_no != 0"> 
+						and 
 					</when>
-					<otherwise> <!-- 타입,상황,방법이 모두 없다면 -->
-						where  <!-- 새로운 조건을 써야 하니까 where -->
+					<otherwise> 
+						where 
 					</otherwise>
 				</choose>
-				ingre_no = #{ingre_no} <!-- 방법 조건 추가 -->
+				ingre_no = #{ingre_no} 
 			</if>
-		order by no desc  <!-- 레시피 고유번호 내림차순으로 정렬 -->
-	</select>
+		order by no desc 
+	</select>  -->
 	
 		<select id="getListNum" resultType="int" parameterType="map"> <!-- 순서가 상관 없으니까 map인가?? -->
-		select count(*) from recipe <!-- 레시피 개수 조회 -->
-			<if test="type_no != 0"> <!-- 타입이 있다면?인 듯  -->
-				where type_no = #{type_no} <!-- 입력한 타입과 같을 때(이 타입인 애들 보여줘) -->
+		select count(*) from recipe 
+			<if test="type_no != 0"> <!-- 타입이 선택됐다면 -->
+				where type_no = #{type_no} <!-- 선택된 타입인애들 보여줘-->
 			</if>
-			<if test="situation_no != 0"> <!-- 상황이 있다면(대전제) -->
+			<if test="situation_no != 0"> <!-- 상황이 선택됐다면 -->
 				<choose>
-					<when test="type_no != 0"><!-- 타입이 있다면 -->
-						and  <!--(and니까 조건 추가)  -->
+					<when test="type_no != 0"><!-- 타입이 선택됐을떄는 -->
+						and <!-- 타입 조건은 있으니까 and로 상황조건 추가 -->
 					</when>
-					<otherwise><!-- 타입이 없다면 -->
-						where  <!-- 타입이 없으니까 type조건 없이 where만 쓰고 아래로 토스 -->
+					<otherwise><!-- 타입이 선택안됐다면 -->
+						where  <!-- 타입이 없으니까 type조건 없이 where만 쓰고 아래로 토스(상황조건으로 토스) -->
 					</otherwise>
 				</choose>
 				situation_no = #{situation_no} <!-- 상황이 입력한 값과 같을 때(이 상황인 애들 보여줘) -->
 			</if>
-			<if test="method_no != 0"> <!-- 방법이 있다면(대전제) -->
+			<if test="method_no != 0"> <!-- 방법이 선택됐다면-->
 				<choose>
-					<when test="type_no != 0 || situation_no != 0"> <!--타입 또는 상황이 있다면 -->
+					<when test="type_no != 0 || situation_no != 0"> <!--타입이나 상황이 선택됐을떄는-->
 						and <!-- 타입과 상황조건은 이미 있고 그 뒤로 조건 추가 -->
 					</when>
 					<otherwise> <!-- 타입과 상황이 없다면 -->
 						where <!-- 둘 다 없으면 지금까지 조건은 없었음 이번에도 없으니까 where만 쓰고 아래로 토스 -->
 					</otherwise>
 				</choose>
-				method_no = #{method_no} <!-- 방법이 입력한 것과 같을 떄(이 방법인 애들 보여줘) -->
+				method_no = #{method_no} <!-- 이 방법인 애들 보여줘-->
 			</if>
-			<if test="ingre_no != 0"> <!-- 재료가 있다면(대전제) -->
+			<if test="ingre_no != 0"> <!-- 재료가 선택됐다면 -->
 				<choose>
 					<when test="type_no != 0 || situation_no != 0 || method_no != 0"> <!-- 타입 또는 상황 또는 방법이 있을 때 -->
 						and  <!-- 지금까지 조건들 플러스 다음 조건 추가하려함 -->
@@ -196,4 +196,49 @@
 			</if>
 		order by no desc <!--레시피 고유번호 내림차순으로 정렬  -->
 	</select>
+	
+	
+	
+	<select id="selectMap" resultType="recipe" parameterType="map">
+    SELECT * FROM recipe
+    <trim prefix="WHERE" prefixOverrides="AND|OR">
+    <if test="type_no != 0">
+        type_no = #{type_no}
+    </if>
+
+    <if test="situation_no != 0">
+        <choose>
+            <when test="type_no != 0">
+                AND situation_no = #{situation_no}
+            </when>
+            <otherwise>
+                situation_no = #{situation_no}
+            </otherwise>
+        </choose>
+    </if>
+
+    <if test="method_no != 0">
+        <choose>
+            <when test="type_no != 0 || situation_no != 0">
+                AND method_no = #{method_no}
+            </when>
+            <otherwise>
+                method_no = #{method_no}
+            </otherwise>
+        </choose>
+    </if>
+
+    <if test="ingre_no != 0">
+        <choose>
+            <when test="type_no != 0 || situation_no != 0 || method_no != 0">
+                AND ingre_no = #{ingre_no}
+            </when>
+            <otherwise>
+                ingre_no = #{ingre_no}
+            </otherwise>
+        </choose>
+    </if>
+</trim>
+    ORDER BY no DESC
+</select>
 </mapper>
