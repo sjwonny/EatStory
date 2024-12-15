@@ -39,8 +39,8 @@ public class QnaController {
 			return "redirect:/login/loginform";
 		}
 
-		List<QnaVO> qnaList = qnaService.selectList(userNo); //로그인한 사람의 qna목록을 qnaList라는 변수에 저장
-		int totalCount = qnaService.selectCount(userNo); //로그인한 사람이 올린 qna 글의 개수를 totalCount에 저장
+		List<QnaVO> qnaList = qnaService.selectList(userNo); //회원이 쓴 글 리스트
+		int totalCount = qnaService.selectCount(userNo); //회원이 올린 그 개수
 
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("totalCount", totalCount);
