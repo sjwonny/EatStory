@@ -119,9 +119,10 @@ public class GoodsService {
 		return goodsDao.purchaseCart(cartNo);
 	}
 
-	public int insertOrderList(GoodsVO vo) {
-		return orderListDao.insertOrderList(vo);
-	}
+//	public int insertOrderList(GoodsVO vo) {
+//		return orderListDao.insertOrderList(vo);
+//	}
+	
 	public List<BrandVO> selectList() {
 		List<BrandVO> list = brandDao.selectList();
 		
@@ -169,6 +170,10 @@ public class GoodsService {
 		 
 	  public List<ReviewVO> selectReviewList(int no){
 		  return goodsDao.selectReviewList(no);
+	  }
+	  
+	  public int checkWishList (WishVO vo) {
+		  return wishDao.checkWishList(vo);
 	  }
 }
 

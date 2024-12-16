@@ -140,7 +140,7 @@ public class GoodsController {
 
 		List<GoodsVO> goodsVo = goodsService.selectCart(users_no);
 
-		// totalPrice 怨꾩궛
+		// totalPrice 
 		int totalPrice = 0;
 		int totalDeliveryPrice = 0;
 
@@ -194,29 +194,36 @@ public class GoodsController {
 	
 	
 	@RequestMapping("/goods/wish/{no}")
-	public String wishList(Model model,HttpSession session ,@PathVariable("no") int no,@RequestParam("options") int[] options) {
+	public String wishList(Model model,HttpSession session ,@PathVariable("no") int no,@RequestParam("options") int[] options, @RequestParam("quantity") int quantity) {
        
 		Integer users_no = (Integer) session.getAttribute("login"); 
 		
-		
+		System.out.println("수량" + quantity);
 		  WishVO wvo = new WishVO(); 
 		  wvo.setUsers_no(users_no);
 		  wvo.setGoods_no(no);
-		  
+		  System.out.println("여기까지되나?");
+	      wvo.setQuantity(quantity);
+	      System.out.println("여기까지되나?1");
 		  for (int i = 0; i < options.length; i++) {
 			wvo.setGoods_option_no(options[i]);
 		  }
-		
+		  int wno = goodsService.checkWishList(wvo);
+		if(wno == 0) {
 		int su1 = goodsService.insertWish(wvo);
+		System.out.println("인서트 됐는지" + su1);
+		model.addAttribute("su1",su1);
+		}
+		
 		
 		
 		List<Map<String, Object>> list = goodsService.printWish(users_no);
 		
-		model.addAttribute("su1",su1);
 		model.addAttribute("list",list);
 	 
 		return "zzimPage";
 	}
+	
 	
 	@RequestMapping("/goods/deleteWish/{no}")
 	public String deleteWish (Model model,HttpSession session, @PathVariable("no") int no) {
@@ -229,7 +236,9 @@ public class GoodsController {
 
     model.addAttribute("list",list);
     model.addAttribute("su2",su2);
+    
 		return "zzimPage";
+		
 	}
 
 }

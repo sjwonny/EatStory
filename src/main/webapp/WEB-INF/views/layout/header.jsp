@@ -221,6 +221,7 @@ background-color:white;
 				<c:choose>
 					<c:when test="${!empty login }">
 						<a href="${pageContext.request.contextPath }/users/mypage">MyPage</a> | 
+						<a href="${pageContext.request.contextPath }/goods/wish">Wish</a> | 
 					<a href="${pageContext.request.contextPath }/login/logout">Logout</a> | 
 			</c:when>
 					<c:otherwise>

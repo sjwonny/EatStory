@@ -29,5 +29,7 @@ public class WishDAO {
 	  public int insertWish(WishVO vo) { return
 	  sqlSession.insert("wish.insertWish", vo); }
 	
-	
+	public int checkWishList(WishVO vo) {
+		return sqlSession.selectOne("wish.checkWishList",vo);
+	}
 }

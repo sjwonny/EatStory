@@ -1,29 +1,29 @@
-package vo.wish;
+package vo.order_item;
 
-public class WishVO {
+public class OrderItemVO {
 
 	private int no;
-	private int users_no;
+	private int order_list_no;
 	private int goods_no;
 	private int goods_option_no;
 	private int quantity;
-
-	public WishVO() {
+	
+	
+	public OrderItemVO() {
 		super();
 	}
-
-	public WishVO(int no, int users_no, int goods_no, int goods_option_no, int quantity) {
+	
+	public OrderItemVO(int no, int order_list_no, int goods_no, int goods_option_no, int quantity) {
 		super();
 		this.no = no;
-		this.users_no = users_no;
+		this.order_list_no = order_list_no;
 		this.goods_no = goods_no;
 		this.goods_option_no = goods_option_no;
 		this.quantity = quantity;
 	}
-
-	public WishVO(int users_no, int goods_no, int goods_option_no, int quantity) {
+	public OrderItemVO(int order_list_no, int goods_no, int goods_option_no, int quantity) {
 		super();
-		this.users_no = users_no;
+		this.order_list_no = order_list_no;
 		this.goods_no = goods_no;
 		this.goods_option_no = goods_option_no;
 		this.quantity = quantity;
@@ -37,12 +37,12 @@ public class WishVO {
 		this.no = no;
 	}
 
-	public int getUsers_no() {
-		return users_no;
+	public int getOrder_list_no() {
+		return order_list_no;
 	}
 
-	public void setUsers_no(int users_no) {
-		this.users_no = users_no;
+	public void setOrder_list_no(int order_list_no) {
+		this.order_list_no = order_list_no;
 	}
 
 	public int getGoods_no() {
@@ -68,8 +68,6 @@ public class WishVO {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
-	
 	
 	
 }

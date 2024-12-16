@@ -34,6 +34,8 @@
 		<typeAlias type="vo.orderlist.OrderListVO" alias="order" />
 		<typeAlias type="vo.manager.brand.BrandVO" alias="brand"/>
 		<typeAlias type="vo.review.ReviewVO" alias="review"/>
+		<typeAlias type="vo.order_item.OrderItemVO" alias="orderItem"/>
+		<typeAlias type="vo.pay.PayVO" alias="pay"/>
 	</typeAliases>
 
 	<mappers>

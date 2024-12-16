@@ -335,7 +335,7 @@ b {
 						<button type="submit"
 							formaction="${pageContext.request.contextPath}/goods/cart/">장바구니</button>
 						<button type="submit"
-							formaction="${pageContext.request.contextPath}/goods/buy">바로구매</button>
+							formaction="${pageContext.request.contextPath}/goods/buy/${vo.no}">바로구매</button>
 					</div>
 				</form>
 

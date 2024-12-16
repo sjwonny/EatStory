@@ -3,7 +3,7 @@
 
 <mapper namespace="order">
 
-	<insert id="insertOrderList">
+	<!-- <insert id="insertOrderList">
 		INSERT INTO order_list(
 		no, users_no, status,
 		order_date, used_mileage, pay_price, delibery_price, discount_price,
@@ -13,6 +13,6 @@
 		0, 0)
 		)
 	</insert>
-
+ -->
 
 </mapper>

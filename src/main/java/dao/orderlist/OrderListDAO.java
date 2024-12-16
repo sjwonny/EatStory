@@ -12,9 +12,9 @@ public class OrderListDAO {
 		this.sqlSession = sqlSession;
 	}
 	
-	public int insertOrderList(GoodsVO vo) {
-		return sqlSession.insert("order.insertOrderList", vo);
-	}
+//	public int insertOrderList(GoodsVO vo) {
+//		return sqlSession.insert("order.insertOrderList", vo);
+//	}
 	
 	
 }

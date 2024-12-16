@@ -54,5 +54,11 @@
 	<bean id="qnaDao" class="dao.qna.QnaDAO">
 		<constructor-arg ref="sqlSession"/>
 	</bean> 
+	<bean id="orderItemDao" class="dao.order_item.Order_itemDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean> 
+	<bean id="payDao" class="dao.pay.PayDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean> 
 
 </beans>

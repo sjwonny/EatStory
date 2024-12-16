@@ -76,7 +76,17 @@
         text-decoration: none;
         margin-top: 10px;
     }
+ 
+    .quantitybutton{
+        width:50px;
+    }
+
+    
 </style>
+<script>
+
+
+</script>
 </head>
 <body>
 <div align="center">
@@ -98,10 +108,10 @@
                         <thead>
                         <tr>
                             <th>
-                                <div class="form_element">
+                               <!--  <div class="form_element">
                                     <input type="checkbox" id="allCheck" name="allCheck" class="gd_checkbox_all" data-target-name="sno[]" data-target-form="#frmWish">
                                     <label for="allCheck" class="check_s"></label>
-                                </div>
+                                </div> -->
                             </th>
                             <th>상품명/옵션</th>
                             <th>상품금액/수량</th>
@@ -144,10 +154,7 @@
                             </td>
                             <td>
                                 <strong>${map.PRICE}</strong>
-/ 1개
-                                <div class="btn_gray_list">
-                                    <a href="#optionViewLayer" class="btn_gray_small btn_open_layer" data-goodsno="1000037390" data-sno="318466" data-page="wish_modify"><span>옵션/수량변경</span></a>
-                                </div>
+			 /<input class="quantitybutton" type="number" value="${map.QUANTITY }" min="1"  id="quantity">개
                             </td>
                             <td>
                                 <ul class="benefit_list">
@@ -165,43 +172,11 @@
                                 </div>
                             </td>
                         </tr>
-
 </c:forEach>
 
- <c:choose>
-	<c:when test="${su1 != 0 }">
-		<script type="text/javascript">
-			alert("추가 성공");
-		
-		</script>
-	</c:when>
-	<c:otherwise>
-		<script type="text/javascript">
-			alert("추가 실패");
-			history.back();
-		</script>
-	</c:otherwise>
-</c:choose> 
- <!-- 
-  <c:choose>
-	<c:when test="${su2 != 0 }">
-		<script type="text/javascript">
-			alert("삭제 성공");
-		
-		</script>
-	</c:when>
-	<c:otherwise>
-		<script type="text/javascript">
-			alert("삭제 실패");
-			history.back();
-		</script>
-	</c:otherwise>
-</c:choose> 
- -->
-<%-- ${msg} --%>
                         </tbody>
                     </table>
-                    <button class="btn_wish_choice_del"><em>선택 상품 삭제</em></button>
+                   <a href="${pageContext.request.contextPath }">홈으로</a>
                     <button class="btn_wish_choice_cart"><em>선택 상품 장바구니</em></button>
                 </form>
 </body>
