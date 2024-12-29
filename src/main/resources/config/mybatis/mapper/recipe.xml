@@ -200,7 +200,7 @@
 	
 	
 	<select id="selectMap" resultType="recipe" parameterType="map">
-    SELECT * FROM recipe
+     SELECT r.no no, r.title title, r.score score, r.hit hit, u.NAME users_name FROM recipe r , users u
     <trim prefix="WHERE" prefixOverrides="AND|OR">
     <if test="type_no != 0">
         type_no = #{type_no}
@@ -238,7 +238,9 @@
             </otherwise>
         </choose>
     </if>
+     and u.no = r.user_no
 </trim>
+  
     ORDER BY no DESC
 </select>
 </mapper>

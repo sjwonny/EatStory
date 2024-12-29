@@ -135,9 +135,10 @@ tr:nth-child(even) {
 							value="${vo.cartNo}" onclick="calculateTotalPrice()"
 							checked="checked"></td>
 						<td><a
-							href="${pageContext.request.contextPath}/goods/${vo.no}"><img
-								src="${pageContext.request.contextPath}/resources/goods/${vo.no}/main.jpeg"
-								style="width: 200px; height: 200px" /></a></td>
+							href="${pageContext.request.contextPath}/goods/${vo.no}">
+							<img src="${pageContext.request.contextPath}/resources/goods/${vo.no}/main.jpeg" style="width: 200px; height: 200px" /> 
+					
+							</a></td>
 						<td><a
 							href="${pageContext.request.contextPath}/goods/${vo.no}">
 								${vo.name}</a> <br> ${vo.detail}</td>

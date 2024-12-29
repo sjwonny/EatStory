@@ -6,8 +6,8 @@
 	<!-- 장바구니 추가 -->
 	<insert id="insertCart" parameterType="cart">
 		insert into cart (no,
-		users_no, goods_option_no, quantities) values (cart_seq.nextval,
-		#{users_no}, #{goods_option_no}, #{quantities})
+		users_no, goods_option_no, quantity) values (cart_seq.nextval,
+		#{users_no}, #{goods_option_no}, #{quantity})
 	</insert>
 
 	<!-- 장바구니 확인 -->

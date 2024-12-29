@@ -23,7 +23,65 @@
 		color: #F0AD18;
 		font-size: 20pt;
 	} 
+	.container {
+	max-width: 1300px;
+	margin: 0 auto;
+	padding: 20px;
+}
+.recipe-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
 
+.recipe-item {
+	width: calc(25% - 20px);
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+	background-color: #fff;
+}
+
+.recipe-image {
+	width: 100%;
+	height: auto;
+	margin-bottom: 10px;
+}
+
+.recipe-title {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.user-profile {
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+}
+
+.user-image {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.user-name {
+	font-size: 14px;
+	font-style: italic;
+}
+
+.rating {
+	font-size: 14px;
+	margin-bottom: 5px;
+}
+
+.hit {
+	font-size: 14px;
+	color: #888;
+}
 
 /* 테이블 스타일 */
 table.filterTable {
@@ -157,7 +215,7 @@ table.filterTable tr:last-child td {
 					<td>
 						&nbsp;
 						<c:choose>
-							<c:when test="${ method_no == 0}">
+							<c:when test="${method_no == 0}">
 								<span class="selected">전체</span>&nbsp;
 							</c:when>
 							<c:otherwise>
@@ -165,13 +223,13 @@ table.filterTable tr:last-child td {
 										class="filters">전체</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
-						<c:forEach var="dto" items="${mList }">
+						<c:forEach var="dto" items="${mList}">
 							<c:choose>
-								<c:when test="${ method_no == dto.no}">
+								<c:when test="${method_no == dto.no}">
 									<span class="selected">${dto.method }</span>&nbsp;
 								</c:when>
 								<c:otherwise>
-									<a href="${cpath }/recipe/seperate?type_no=${type_no}&situation_no=${situation_no}&method_no=${dto.no}&ingre_no=${ingre_no}" 
+									<a href="${cpath}/recipe/seperate?type_no=${type_no}&situation_no=${situation_no}&method_no=${dto.no}&ingre_no=${ingre_no}" 
 											class="filters">${dto.method }</a>&nbsp;
 								</c:otherwise>
 							</c:choose>
@@ -193,12 +251,12 @@ table.filterTable tr:last-child td {
 						</c:choose>
 						<c:forEach var="dto" items="${iList }">
 							<c:choose>
-								<c:when test="${ ingre_no == dto.no}">
+								<c:when test="${ingre_no == dto.no}">
 									<span class="selected">${dto.ingre }</span>&nbsp;
 								</c:when>
 								<c:otherwise>
 									<a href="${cpath }/recipe/seperate?type_no=${type_no}&situation_no=${situation_no}&method_no=${method_no}&ingre_no=${dto.no}" 
-											class="filters">${dto.ingre }</a>&nbsp;
+											class="filters">${dto.ingre}</a>&nbsp;
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -208,7 +266,7 @@ table.filterTable tr:last-child td {
 		</div>
 		<div style="width:1080px">
 			<br>
-				<p id="count" >총 <span id="count">${(list == null)? 0 : list.size() }</span>개의 맛있는 레시피가 있습니다.</p>
+				<p id="count" >총 <span id="count">${(list == null)? 0 : list.size()}</span>개의 맛있는 레시피가 있습니다.</p>
 			<br>
 		</div>
 		<div>
@@ -217,30 +275,26 @@ table.filterTable tr:last-child td {
 					<p class="no-recipe-msg">레시피가 존재하지 않습니다.</p>
 				</c:when>
 				<c:otherwise>
-			<table id="contents">
-				<% int i = 0; %>
-				<tr>
+			
+					<div class="container">
+				<div class="recipe-list">
 				<c:forEach var="dto" items="${list}">
-					<% if (i != 0 && i % 4 == 0) { %>
-						</tr>
-						<tr>
-					<% } %>
-					<td>
-						<a href="${pageContext.request.contextPath}/recipe/${dto.no}"><img src="${pageContext.request.contextPath}/resources/recipe/${dto.no}/${img.img}" width="240px">
-						<p>${dto.title }</p>
-						<p></p>
-						</a>
-					</td>
-					<% i++; %>
+					<div class="recipe-item">
+							<a href="${pageContext.request.contextPath}/recipe/${dto.no}"> <!-- 컨트롤러로 레시피 번호 보냄(시퀀스)그리고 상세페이지로 넘어감 -->
+							<img class="recipe-image" src="${pageContext.request.contextPath}/resources/recipe/${dto.no}/main.jpeg" style="height:200px;" alt="레시피 이미지" />
+							</a> 
+							<div class="recipe-title">${dto.title}</div> <!-- 레시피 제목 -->
+							<div class="user-profile">
+								<img class="user-image" src="${pageContext.request.contextPath}/resources/images/users.png" alt="프로필 이미지" /> 
+								<div class="user-name">${dto.users_name}</div> <!-- 작성자 이름 -->
+							</div>
+							<div class="rating">별점: ${dto.score/2}</div> 
+							<div class="hit">조회수: ${dto.hit}</div> <!-- 조회수  -->
+						</div>
 				</c:forEach>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-			</table>
+				</div>
+						</div>
+				
 			</c:otherwise>
 		</c:choose>
 		</div>
