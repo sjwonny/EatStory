@@ -14,10 +14,11 @@
 - IDE : Spring Tool Suite (STS)
 - Database Tool : SQL Developer
 - Database : Oracle Database
+- Database Framework : MyBatis
 - Framework : Spring Framework
 - Build Tool : Maven
 - Programming Language : Java 11
-- Frontend : HTML, CSS, JavaScript, JSP
+- Frontend : HTML, CSS, JavaScript, JSP, Ajax, jQuery
 - Web Server : Apache Tomcat
 
 # ERD
