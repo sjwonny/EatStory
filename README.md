@@ -10,6 +10,16 @@
 |팀원|서지원|
 |팀원|박상은|
 
+# 개발환경
+- IDE : Spring Tool Suite (STS)
+- Database Tool : SQL Developer
+- Database : Oracle Database
+- Framework : Spring Framework
+- Build Tool : Maven
+- Programming Language : Java 11
+- Frontend : HTML, CSS, JavaScript, JSP
+- Web Server : Apache Tomcat
+
 # ERD
 ![Untitled (2)](https://github.com/user-attachments/assets/dbe7c0e0-3e32-4052-8bac-cdb42e6530f1)
 
